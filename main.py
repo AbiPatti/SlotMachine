@@ -3,6 +3,8 @@
 
 # Constants
 MAX_LINES = 3
+MAX_BET = 100
+MIN_BET = 1
 
 # Function to welcome users to game
 def welcomeMessage():
@@ -46,11 +48,29 @@ def getNumberOfLines():
 
     return lines
 
+def get_bet():
+    while True:
+        amount = input("Enter amount to bet on each line: $")
+
+        # Input validation - Must be a valid float
+        try:
+            amount = float(amount)
+            # Input validation - Bet must be between min and max bet
+            if MIN_BET <= amount <= MAX_BET:
+                break
+            else:
+                print(f"Amount must be between ${MIN_BET} and ${MAX_BET}")
+        except ValueError:
+            print("Please enter a number.")
+    
+    return amount
+
 
 # Main game function
 def main():
     balance = deposit()
     lines = getNumberOfLines()
+    bet = get_bet()
 
 welcomeMessage()
 main()
