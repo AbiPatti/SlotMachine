@@ -30,6 +30,7 @@ symbolValue = {
 def checkWinnings(columns, lines, bet, values):
 
     winnings = 0
+    winningLines = []
 
     for line in range(lines):
         symbol = columns[0][line]
@@ -39,6 +40,9 @@ def checkWinnings(columns, lines, bet, values):
                 break
         else:
             winnings += values[symbol] * bet
+            winningLines.append(line + 1) # add current line, accounting for 0-based indexing
+        
+    return winnings, winningLines
 
 # Function to spin the slot machine
 def getSlotMachineSpin(rows, cols, symbols):
@@ -159,8 +163,9 @@ def main():
     printSlotMachine(slots)
 
     # Display winnings
-    winnings = checkWinnings(slots, lines, bet, symbolValue)
+    winnings, winningLines = checkWinnings(slots, lines, bet, symbolValue)
     print(f"You won ${winnings}!")
+    print(f"You won on lines: ", *winningLines)
 
 welcomeMessage()
 main()
