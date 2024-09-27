@@ -137,10 +137,8 @@ def get_bet():
     
     return amount
 
-
-# Main game function
-def main():
-    balance = deposit()
+# Spin
+def spin(balance):
     lines = getNumberOfLines()
 
     while True:
@@ -166,6 +164,25 @@ def main():
     winnings, winningLines = checkWinnings(slots, lines, bet, symbolValue)
     print(f"You won ${winnings}!")
     print(f"You won on lines: ", *winningLines)
+
+    return winnings - totalBet
+
+# Main game function
+def main():
+    balance = deposit()
+
+    while True:
+        print(f"Current balance is ${balance}")
+        answer = input("Press enter to play or q to quit.")
+
+        if answer.lower() == "q":
+            print("\nThank you for playing Abinash's Slot Machine!")
+            break
+
+        balance += spin(balance)
+
+    #Display final balance
+    print(f"You left with ${balance}")
 
 welcomeMessage()
 main()
