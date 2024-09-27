@@ -18,6 +18,28 @@ symbolCount = {
     "🍌": 8
 }
 
+# Multiplier of each symbol 
+symbolValue = {
+    "⭐": 10,
+    "🍇": 5,
+    "🍒": 3,
+    "🍌": 2
+}
+
+# Function to check winnings
+def checkWinnings(columns, lines, bet, values):
+
+    winnings = 0
+
+    for line in range(lines):
+        symbol = columns[0][line]
+        for column in columns:
+            symbolToCheck = column[line]
+            if symbol != symbolToCheck: # If one symbol does not match
+                break
+        else:
+            winnings += values[symbol] * bet
+
 # Function to spin the slot machine
 def getSlotMachineSpin(rows, cols, symbols):
 
@@ -130,8 +152,15 @@ def main():
     # Display bet information
     print(f"\nYou are betting ${bet} on {lines} lines. Total amount bet: ${totalBet}")
 
+    # Spin slot machine
     slots = getSlotMachineSpin(ROWS, COLS, symbolCount)
+
+    # Print slot machine
     printSlotMachine(slots)
+
+    # Display winnings
+    winnings = checkWinnings(slots, lines, bet, symbolValue)
+    print(f"You won ${winnings}!")
 
 welcomeMessage()
 main()
